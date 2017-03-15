@@ -30,4 +30,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.1.1'
     compile 'com.android.support:design:25.1.1'
     compile 'homhomlin.lib:apsts:1.6.0'
+    compile 'com.google.guava:guava:16.0.1'
 }
