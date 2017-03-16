@@ -9,7 +9,7 @@ import java.sql.Date;
  */
 
 public class Message extends DataSupport {
-    private String id;
+    private int id;
 
     private String content;
 
@@ -21,11 +21,11 @@ public class Message extends DataSupport {
 
     private People people;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

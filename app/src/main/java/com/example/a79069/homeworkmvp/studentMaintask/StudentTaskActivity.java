@@ -1,8 +1,7 @@
-package com.example.a79069.homeworkmvp.maintask;
+package com.example.a79069.homeworkmvp.studentMainTask;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,10 +14,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.a79069.homeworkmvp.R;
-import com.example.a79069.homeworkmvp.maintask.Fragment.FourFragment;
-import com.example.a79069.homeworkmvp.maintask.Fragment.OneFragment;
-import com.example.a79069.homeworkmvp.maintask.Fragment.ThreeFragment;
-import com.example.a79069.homeworkmvp.maintask.Fragment.TwoFragment;
+import com.example.a79069.homeworkmvp.studentMainTask.Fragment.FourFragment;
+import com.example.a79069.homeworkmvp.studentMainTask.Fragment.OneFragment;
+import com.example.a79069.homeworkmvp.studentMainTask.Fragment.ThreeFragment;
+import com.example.a79069.homeworkmvp.studentMainTask.Fragment.TwoFragment;
+import com.example.a79069.homeworkmvp.util.ActivityUtils;
 import com.lhh.apst.library.AdvancedPagerSlidingTabStrip;
 
 import java.util.ArrayList;
@@ -30,14 +30,15 @@ import java.util.List;
  * Created by 79069 on 2017/3/14.
  */
 
-public class MainTaskActivity extends AppCompatActivity {
-    private List<Fragment> mFragmentList;
+public class StudentTaskActivity extends AppCompatActivity {
+    private List<StudentTaskContract.View> mFragmentList;
     private List<String> mIconNameList;
     private List<Integer> mIconDefaultImageIdList;
     private List<Integer> mIconImageIdList;
+    private StudentTaskPresenter mPresenter;
 
     public static Intent newIntent(Context context){
-        Intent intent = new Intent(context , MainTaskActivity.class);
+        Intent intent = new Intent(context , StudentTaskActivity.class);
         return intent;
     }
 
@@ -93,7 +94,7 @@ public class MainTaskActivity extends AppCompatActivity {
         viewPager.setAdapter(fragmentAdapter);
         tabStrip.setViewPager(viewPager);
 
-
+        mPresenter = new StudentTaskPresenter(ActivityUtils.getAppRepository() , mFragmentList);
     }
 
 
@@ -102,12 +103,12 @@ public class MainTaskActivity extends AppCompatActivity {
 
     private class FragmentAdapter extends FragmentStatePagerAdapter
             implements AdvancedPagerSlidingTabStrip.IconTabProvider{
-        private List<Fragment> mFragmentList;
+        private List<StudentTaskContract.View> mFragmentList;
         private List<String> mIconNameList;
         private List<Integer> mIconImageIdList;
         private List<Integer> mIconDefaultImageIdList;
         public FragmentAdapter(FragmentManager fm
-                , List<Fragment> fragmentList
+                , List<StudentTaskContract.View> fragmentList
                 , List<Integer> iconImageIdList
                 , List<Integer> iconDefaultImageIdList
                 , List<String> iconNameList)
@@ -121,7 +122,7 @@ public class MainTaskActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return mFragmentList.get(position);
+            return (Fragment) mFragmentList.get(position);
         }
 
         @Override

@@ -1,10 +1,8 @@
-package com.example.a79069.homeworkmvp.logintask;
+package com.example.a79069.homeworkmvp.loginTask;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -21,7 +19,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.a79069.homeworkmvp.R;
-import com.example.a79069.homeworkmvp.maintask.MainTaskActivity;
+import com.example.a79069.homeworkmvp.registerTask.RegisterActivity;
+import com.example.a79069.homeworkmvp.studentMainTask.StudentTaskActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +47,7 @@ public class LoginTaskFragment extends Fragment implements LoginTaskContract.Vie
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login , container , false);
 
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_inlogin);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar_login);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         Spinner selectSpinner = (Spinner) view.findViewById(R.id.spinner);
@@ -96,6 +95,12 @@ public class LoginTaskFragment extends Fragment implements LoginTaskContract.Vie
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mLoginPresenter.start();
+    }
+
+    @Override
     public void setPresenter(LoginTaskContract.Presenter presenter) {
         mLoginPresenter = (LoginTaskPresenter) presenter;
     }
@@ -107,33 +112,27 @@ public class LoginTaskFragment extends Fragment implements LoginTaskContract.Vie
                 mLoginPresenter.loginApp(account.getText().toString()
                         , password.getText().toString() , mSelectType , remCheckBox.isChecked());
                 break;
+            case R.id.register_account:
+                showRegisteredActivity();
+                break;
         }
     }
 
-
+    /**
+     * 登陆成功
+     */
     @Override
-    public void showMainActivityTask() {
-        Intent intent = MainTaskActivity.newIntent(getActivity());
+    public void loginSuccess() {
+        Intent intent = StudentTaskActivity.newIntent(getActivity());
         startActivity(intent);
     }
 
+
+    /**
+     * 登陆失败
+     */
     @Override
-    public void showRegisteredActivityTask() {
-
-    }
-
-    @Override
-    public void showForgetActivityTask() {
-
-    }
-
-    @Override
-    public void closeActivity() {
-        getActivity().finish();
-    }
-
-    @Override
-    public void showDialogForFaultLogin() {
+    public void loginFailed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(false);
         builder.setTitle("Error");
@@ -147,5 +146,23 @@ public class LoginTaskFragment extends Fragment implements LoginTaskContract.Vie
         });
         builder.show();
     }
+
+
+    @Override
+    public void showRegisteredActivity() {
+        Intent intent = RegisterActivity.newIntent(getActivity());
+        startActivity(intent);
+    }
+
+    @Override
+    public void showForgetActivity() {
+
+    }
+
+    @Override
+    public void closeActivity() {
+        getActivity().finish();
+    }
+
 
 }

@@ -1,4 +1,4 @@
-package com.example.a79069.homeworkmvp.maintask;
+package com.example.a79069.homeworkmvp.studentMainTask;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

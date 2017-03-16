@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public class People extends DataSupport{
-    private String id;
+    private int id;
 
     private String name;
 
@@ -29,13 +29,13 @@ public class People extends DataSupport{
 
     private List<Message> messageList;
 
-    private List<People> friendsList;
 
-    public String getId() {
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -111,11 +111,5 @@ public class People extends DataSupport{
         this.messageList = messageList;
     }
 
-    public List<People> getFriendsList() {
-        return friendsList;
-    }
 
-    public void setFriendsList(List<People> friendsList) {
-        this.friendsList = friendsList;
-    }
 }

@@ -1,4 +1,4 @@
-package com.example.a79069.homeworkmvp.maintask.Fragment;
+package com.example.a79069.homeworkmvp.studentMainTask.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,18 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.a79069.homeworkmvp.R;
-import com.example.a79069.homeworkmvp.maintask.MainTaskContract;
-import com.example.a79069.homeworkmvp.maintask.MainTaskPresenter;
+import com.example.a79069.homeworkmvp.studentMainTask.StudentTaskContract;
+import com.example.a79069.homeworkmvp.studentMainTask.StudentTaskPresenter;
 
 /**
  * Created by 79069 on 2017/3/14.
  */
 
-public class OneFragment extends Fragment implements MainTaskContract.View.OneView{
+public class OneFragment extends Fragment implements StudentTaskContract.View.OneView{
     public static OneFragment newInstance() {
         return new OneFragment();
     }
-    private MainTaskPresenter mMainTaskPresenter;
+    private StudentTaskPresenter mStudentTaskPresenter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,8 +30,8 @@ public class OneFragment extends Fragment implements MainTaskContract.View.OneVi
     }
 
     @Override
-    public void setPresenter(MainTaskContract.Presenter presenter) {
-        mMainTaskPresenter = (MainTaskPresenter) presenter;
+    public void setPresenter(StudentTaskContract.Presenter presenter) {
+        mStudentTaskPresenter = (StudentTaskPresenter) presenter;
     }
 
     @Override

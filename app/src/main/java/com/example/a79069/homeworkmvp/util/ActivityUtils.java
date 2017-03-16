@@ -21,6 +21,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.example.a79069.homeworkmvp.BasePresenter;
+import com.example.a79069.homeworkmvp.BaseView;
+import com.example.a79069.homeworkmvp.data.source.AppRepository;
+import com.example.a79069.homeworkmvp.data.source.local.TaskLocalDataSource;
+import com.example.a79069.homeworkmvp.data.source.remote.TaskRemoteDataSource;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -40,5 +46,10 @@ public class ActivityUtils {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(frameId, fragment);
         transaction.commit();
+    }
+
+    public static AppRepository getAppRepository(){
+        return AppRepository.getInstance(TaskLocalDataSource.getInstance() ,
+                TaskRemoteDataSource.getInstance());
     }
 }

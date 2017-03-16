@@ -46,9 +46,7 @@ public class TaskLocalDataSource implements TasksDataSource {
 
     @Override
     public void getMyInformation() {
-        People people = new People();
 
-        people = (People) DataSupport.where("name=?" , "").find(People.class);
     }
 
 

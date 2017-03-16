@@ -1,4 +1,4 @@
-package com.example.a79069.homeworkmvp.maintask;
+package com.example.a79069.homeworkmvp.studentMainTask;
 
 import com.example.a79069.homeworkmvp.BasePresenter;
 import com.example.a79069.homeworkmvp.BaseView;
@@ -7,7 +7,7 @@ import com.example.a79069.homeworkmvp.BaseView;
  * Created by 79069 on 2017/3/14.
  */
 
-public interface MainTaskContract {
+public interface StudentTaskContract {
     interface Presenter extends BasePresenter {
         void loadNewHomework();
 

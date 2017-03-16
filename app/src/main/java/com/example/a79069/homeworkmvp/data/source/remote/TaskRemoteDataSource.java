@@ -22,7 +22,7 @@ public class TaskRemoteDataSource implements TasksDataSource {
 
     @Override
     public void queryLoginAccountInfo(String account, GetPeopleCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
     @Override

@@ -1,12 +1,6 @@
-package com.example.a79069.homeworkmvp.logintask;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
+package com.example.a79069.homeworkmvp.loginTask;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-
-import com.example.a79069.homeworkmvp.app.MyApplication;
 import com.example.a79069.homeworkmvp.data.People;
 import com.example.a79069.homeworkmvp.data.source.AppRepository;
 import com.example.a79069.homeworkmvp.data.source.TasksDataSource;
@@ -21,7 +15,7 @@ public class LoginTaskPresenter implements LoginTaskContract.Presenter {
 
     public LoginTaskPresenter(AppRepository appRepository , LoginTaskContract.View loginFragmentView){
         mAppRepository = checkNotNull(appRepository , "");
-        mLoginFragmentView = checkNotNull(mLoginFragmentView , "");
+        mLoginFragmentView = checkNotNull(loginFragmentView , "");
 
         mLoginFragmentView.setPresenter(this);
     }
@@ -41,14 +35,20 @@ public class LoginTaskPresenter implements LoginTaskContract.Presenter {
                     }else {
                         deletePasswordInSharePreferences();
                     }
-                    mLoginFragmentView.showMainActivityTask();
+                    if (peopleType.equals("学生类型")) {
+                        mLoginFragmentView.loginSuccess();
+                    }else if (peopleType.equals("家长类型")){
+
+                    }else if (peopleType.equals("教师类型")){
+
+                    }
                     mLoginFragmentView.closeActivity();
                 }
             }
 
             @Override
             public void onDataNotAvailable() {
-                mLoginFragmentView.showDialogForFaultLogin();
+                mLoginFragmentView.loginFailed();
             }
         });
     }

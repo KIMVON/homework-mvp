@@ -21,13 +21,13 @@
             >
         </android.support.v7.widget.Toolbar>
 
-        <com.example.a79069.homeworkmvp.maintask.NoScrollViewPager
+        <com.example.a79069.homeworkmvp.studentMainTask.NoScrollViewPager
             android:id="@+id/fragment_viewpager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             >
-        </com.example.a79069.homeworkmvp.maintask.NoScrollViewPager>
+        </com.example.a79069.homeworkmvp.studentMainTask.NoScrollViewPager>
 
         <com.lhh.apst.library.AdvancedPagerSlidingTabStrip
             android:id="@+id/tab_strip"

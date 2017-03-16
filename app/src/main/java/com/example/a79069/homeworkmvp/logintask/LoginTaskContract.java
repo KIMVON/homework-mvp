@@ -1,4 +1,4 @@
-package com.example.a79069.homeworkmvp.logintask;
+package com.example.a79069.homeworkmvp.loginTask;
 
 import com.example.a79069.homeworkmvp.BasePresenter;
 import com.example.a79069.homeworkmvp.BaseView;
@@ -13,14 +13,14 @@ public interface LoginTaskContract {
     }
 
     interface View extends BaseView<Presenter>{
-        void showMainActivityTask();
+        void loginSuccess();
 
-        void showRegisteredActivityTask();
+        void loginFailed();
 
-        void showForgetActivityTask();
+        void showRegisteredActivity();
+
+        void showForgetActivity();
 
         void closeActivity();
-
-        void showDialogForFaultLogin();
     }
 }
