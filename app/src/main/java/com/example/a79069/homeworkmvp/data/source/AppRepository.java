@@ -1,9 +1,18 @@
 package com.example.a79069.homeworkmvp.data.source;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.example.a79069.homeworkmvp.data.Classroom;
 import com.example.a79069.homeworkmvp.data.Homework;
 import com.example.a79069.homeworkmvp.data.Message;
 import com.example.a79069.homeworkmvp.data.People;
+import com.example.a79069.homeworkmvp.data.source.local.TaskLocalDataSource;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by 79069 on 2017/3/15.
@@ -12,18 +21,67 @@ import com.example.a79069.homeworkmvp.data.People;
 public class AppRepository implements TasksDataSource {
     private static AppRepository INSTANCE;
 
+    Map<String, People> mCachedPeoples;
+
+
     private TasksDataSource mTasksLocalDataSource;
     private TasksDataSource mTasksRemoteDataSource;
-    private AppRepository(TasksDataSource tasksLocalDataSource , TasksDataSource tasksRemoteDataSource){
+
+    private AppRepository(TasksDataSource tasksLocalDataSource, TasksDataSource tasksRemoteDataSource) {
         mTasksLocalDataSource = tasksLocalDataSource;
         mTasksRemoteDataSource = tasksRemoteDataSource;
     }
 
-    public static AppRepository getInstance(TasksDataSource tasksLocalDataSource , TasksDataSource tasksRemoteDataSource){
+    public static AppRepository getInstance(TasksDataSource tasksLocalDataSource, TasksDataSource tasksRemoteDataSource) {
         if (INSTANCE == null) {
             INSTANCE = new AppRepository(tasksLocalDataSource, tasksRemoteDataSource);
         }
         return INSTANCE;
+    }
+
+    @Override
+    public void queryLoginAccountInfo(final String account, final GetPeopleCallback callback) {
+        checkNotNull(account);
+        checkNotNull(callback);
+
+        People cachePeople = getPeopleWithAccount(account);
+
+        if (cachePeople != null) {
+            callback.loadPeople(cachePeople);
+            return;
+        }
+
+        mTasksLocalDataSource.queryLoginAccountInfo(account, new GetPeopleCallback() {
+            @Override
+            public void loadPeople(People people) {
+                if (mCachedPeoples == null) {
+                    mCachedPeoples = new LinkedHashMap<>();
+                }
+
+                mCachedPeoples.put(people.getAccount(), people);
+                callback.loadPeople(people);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                mTasksRemoteDataSource.queryLoginAccountInfo(account, new GetPeopleCallback() {
+                    @Override
+                    public void loadPeople(People people) {
+                        if (mCachedPeoples == null) {
+                            mCachedPeoples = new LinkedHashMap<>();
+                        }
+
+                        mCachedPeoples.put(people.getAccount(), people);
+                        callback.loadPeople(people);
+                    }
+
+                    @Override
+                    public void onDataNotAvailable() {
+                        callback.onDataNotAvailable();
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -82,7 +140,7 @@ public class AppRepository implements TasksDataSource {
     }
 
     @Override
-    public void getFriendInfo(GetMyFriendCallback callback) {
+    public void getFriendInfo(GetPeopleCallback callback) {
 
     }
 
@@ -160,4 +218,45 @@ public class AppRepository implements TasksDataSource {
     public void pushGoodHomework(Homework homework) {
 
     }
+
+    @Nullable
+    private People getPeopleWithAccount(@NonNull String account) {
+        checkNotNull(account);
+        if (mCachedPeoples == null || mCachedPeoples.isEmpty()) {
+            return null;
+        } else {
+            return mCachedPeoples.get(account);
+        }
+    }
+
+
+    public void saveAccountInSharePreferences(String account) {
+        ((TaskLocalDataSource) mTasksLocalDataSource).saveAccountInSharePreferences(account);
+    }
+
+    public String getAccountInSharePreferences() {
+        return ((TaskLocalDataSource) mTasksLocalDataSource).getAccountInSharePreferences();
+    }
+
+    public void savePasswordInSharePreferences(String password) {
+        ((TaskLocalDataSource) mTasksLocalDataSource).savePasswordInSharePreferences(password);
+    }
+
+    public String getPasswordInSharePreferences() {
+        return ((TaskLocalDataSource) mTasksLocalDataSource).getPasswordInSharePreferences();
+    }
+
+    public void deletePasswordInSharePreference(){
+        ((TaskLocalDataSource) mTasksLocalDataSource).deletePassworkInSharePreferences();
+    }
+
+    public void saveIsRememberInSharePreferences(Boolean isRemember) {
+        ((TaskLocalDataSource) mTasksLocalDataSource).saveIsRememberInSharePreferences(isRemember);
+    }
+
+    public boolean getIsRememberInSharePreferences() {
+        return ((TaskLocalDataSource) mTasksLocalDataSource).getIsRememberInSharePreferences();
+    }
+
+
 }

@@ -1,5 +1,7 @@
 package com.example.a79069.homeworkmvp.maintask;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -33,6 +35,13 @@ public class MainTaskActivity extends AppCompatActivity {
     private List<String> mIconNameList;
     private List<Integer> mIconDefaultImageIdList;
     private List<Integer> mIconImageIdList;
+
+    public static Intent newIntent(Context context){
+        Intent intent = new Intent(context , MainTaskActivity.class);
+        return intent;
+    }
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

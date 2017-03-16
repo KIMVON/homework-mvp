@@ -11,7 +11,10 @@ public interface MainTaskContract {
     interface Presenter extends BasePresenter {
         void loadNewHomework();
 
-        void loadMyClass();
+        void loadMyClassroom();
+
+        void loadMessage();
+
     }
 
     interface View extends BaseView<Presenter> {

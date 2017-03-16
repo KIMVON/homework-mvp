@@ -20,6 +20,10 @@ public class TaskRemoteDataSource implements TasksDataSource {
     }
 
 
+    @Override
+    public void queryLoginAccountInfo(String account, GetPeopleCallback callback) {
+
+    }
 
     @Override
     public void getNewHomeworksInfo(LoadHomeworkCallback callback) {
@@ -77,9 +81,12 @@ public class TaskRemoteDataSource implements TasksDataSource {
     }
 
     @Override
-    public void getFriendInfo(GetMyFriendCallback callback) {
+    public void getFriendInfo(GetPeopleCallback callback) {
 
     }
+
+
+
 
     @Override
     public void getMessagesInfo(LoadMessagesCallback callback) {

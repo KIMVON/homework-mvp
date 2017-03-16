@@ -60,9 +60,10 @@ public class OneFragment extends Fragment implements MainTaskContract.View.OneVi
     }
 
     @Override
-    public void showMyInfo() {
+    public void showMyClassroomInfo() {
 
     }
+
 
     @Override
     public void showHistoryHomework() {

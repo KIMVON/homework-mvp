@@ -43,7 +43,12 @@ public class MainTaskPresenter implements MainTaskContract.Presenter {
     }
 
     @Override
-    public void loadMyClass() {
+    public void loadMyClassroom() {
+
+    }
+
+    @Override
+    public void loadMessage() {
 
     }
 }

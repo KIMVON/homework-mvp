@@ -52,8 +52,8 @@ public interface TasksDataSource {
         void onDataNotAvailable();
     }
 
-    interface GetMyFriendCallback{
-        void loadMyFriend(People people);
+    interface GetPeopleCallback{
+        void loadPeople(People people);
 
         void onDataNotAvailable();
     }
@@ -74,7 +74,7 @@ public interface TasksDataSource {
     }
 
 
-
+    void queryLoginAccountInfo(String account,GetPeopleCallback callback);
 
     void getNewHomeworksInfo(LoadHomeworkCallback callback);
     void getNewHomeworkInfo(GetHomeworkCallback callback);
@@ -92,7 +92,7 @@ public interface TasksDataSource {
     void getMyClassroomInfo(GetMyClassroomCallback callback);
 
     void getFriendsInfo(LoadMyFriendsCallback callback);
-    void getFriendInfo(GetMyFriendCallback callback);
+    void getFriendInfo(GetPeopleCallback callback);
 
     void getMessagesInfo(LoadMessagesCallback callback);
     void getMessageInfo(GetMessageCallback callback);
