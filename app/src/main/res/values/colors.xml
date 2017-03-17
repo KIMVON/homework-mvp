@@ -3,6 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorToolbarBackground">#fa221f1f</color>
+    <color name="colorToolbarBackground">#FA221F1F</color>
     <color name="colorTabTextSelect">#e0620d</color>
+    <color name="state_pressed">#ded7d7</color>
+    <color name="state_default">#ffffff</color>
 </resources>

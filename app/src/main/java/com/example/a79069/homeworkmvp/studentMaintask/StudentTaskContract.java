@@ -2,6 +2,7 @@ package com.example.a79069.homeworkmvp.studentMainTask;
 
 import com.example.a79069.homeworkmvp.BasePresenter;
 import com.example.a79069.homeworkmvp.BaseView;
+import com.example.a79069.homeworkmvp.forgetTask.ForgetContract;
 
 /**
  * Created by 79069 on 2017/3/14.
@@ -40,6 +41,22 @@ public interface StudentTaskContract {
             //启动历史作业
             void showHistoryHomework();
 
+
+        }
+
+        interface TwoView extends View{
+
+            //查看提到我的
+            void showMentionsTask();
+
+            //查看评论
+            void showCommentsTask();
+
+            //查看赞
+            void showLikesTask();
+        }
+
+        interface FourView extends View{
             //启动校园社区
             void showSchoolSociety();
         }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/icon_menu_chat"
+        
+        android:title="聊天"
+        app:showAsAction="never"
+        android:id="@+id/chat"/>
+    <item
+        android:title="私密聊天"
+        app:showAsAction="never"
+        android:icon="@android:drawable/ic_partial_secure"
+        android:id="@+id/private_chat"/>
+</menu>

@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/background_text"
+            android:gravity="center_vertical"
+            android:text="我的作业"
+            android:textColor="#0d0808"
+            android:textSize="18sp"/>
+
+        <include layout="@layout/fragment_one_top"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/background_text"
+            android:gravity="center_vertical"
+            android:text="我的班级"
+            android:textColor="#0d0808"
+            android:textSize="18sp"/>
+
+        <include layout="@layout/fragment_one_bottom"/>
+    </LinearLayout>
+</ScrollView>

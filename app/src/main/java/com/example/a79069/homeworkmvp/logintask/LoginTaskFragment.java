@@ -17,8 +17,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.a79069.homeworkmvp.R;
+import com.example.a79069.homeworkmvp.forgetTask.ForgetActivity;
 import com.example.a79069.homeworkmvp.registerTask.RegisterActivity;
 import com.example.a79069.homeworkmvp.studentMainTask.StudentTaskActivity;
 
@@ -42,6 +44,8 @@ public class LoginTaskFragment extends Fragment implements LoginTaskContract.Vie
     private List<String> spinnerList = new ArrayList<>();
     private ArrayAdapter arrayAdapter;
     private CheckBox remCheckBox;
+    private TextView mRegisterTextView;
+    private TextView mForgetTextView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +54,9 @@ public class LoginTaskFragment extends Fragment implements LoginTaskContract.Vie
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar_login);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
+        /**
+         * 初始化Spinner
+         */
         Spinner selectSpinner = (Spinner) view.findViewById(R.id.spinner);
         spinnerList.add("学生类型");
         spinnerList.add("家长类型");
@@ -75,8 +82,11 @@ public class LoginTaskFragment extends Fragment implements LoginTaskContract.Vie
         Button loginButton = (Button) view.findViewById(R.id.login);
         loginButton.setOnClickListener(this);
 
+        mRegisterTextView = (TextView) view.findViewById(R.id.register_account);
+        mRegisterTextView.setOnClickListener(this);
 
-
+        mForgetTextView = (TextView) view.findViewById(R.id.forget_password);
+        mForgetTextView.setOnClickListener(this);
 
         isRemember = mLoginPresenter.getIsRememberInSharePreferences();
         account.setText(mLoginPresenter.getAccountInSharePreferences());
@@ -109,11 +119,20 @@ public class LoginTaskFragment extends Fragment implements LoginTaskContract.Vie
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.login:
+                /** 测试先不用
                 mLoginPresenter.loginApp(account.getText().toString()
                         , password.getText().toString() , mSelectType , remCheckBox.isChecked());
+                 **/
+                /**
+                 * 测试用
+                 */
+                loginSuccess();
                 break;
             case R.id.register_account:
                 showRegisteredActivity();
+                break;
+            case R.id.forget_password:
+                showForgetActivity();
                 break;
         }
     }
@@ -147,22 +166,29 @@ public class LoginTaskFragment extends Fragment implements LoginTaskContract.Vie
         builder.show();
     }
 
-
+    /**
+     * 进入注册页面
+     */
     @Override
     public void showRegisteredActivity() {
         Intent intent = RegisterActivity.newIntent(getActivity());
         startActivity(intent);
     }
 
+    /**
+     * 进入忘记密码界面
+     */
     @Override
     public void showForgetActivity() {
-
+        Intent intent = ForgetActivity.newIntent(getActivity());
+        startActivity(intent);
     }
 
+    /**
+     * 关闭页面
+     */
     @Override
     public void closeActivity() {
         getActivity().finish();
     }
-
-
 }
