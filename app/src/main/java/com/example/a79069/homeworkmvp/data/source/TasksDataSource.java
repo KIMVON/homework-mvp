@@ -1,6 +1,7 @@
 package com.example.a79069.homeworkmvp.data.source;
 
 import com.example.a79069.homeworkmvp.data.Classroom;
+import com.example.a79069.homeworkmvp.data.Friends;
 import com.example.a79069.homeworkmvp.data.Homework;
 import com.example.a79069.homeworkmvp.data.Message;
 import com.example.a79069.homeworkmvp.data.People;
@@ -47,7 +48,7 @@ public interface TasksDataSource {
      * 加载朋友的回调
      * */
     interface LoadMyFriendsCallback{
-        void loadMyFriends(List<People> peopleList);
+        void loadMyFriends(List<Friends> friendsList);
 
         void onDataNotAvailable();
     }
@@ -74,6 +75,20 @@ public interface TasksDataSource {
     }
 
 
+    /**
+     * 注册回调
+     */
+    interface RegisterAccountCallback{
+        void registerSuccess();
+
+        void registerFailed(String account);
+    }
+
+
+    void registerAccount(String account, String password, String name, String sex, int year, String userType ,RegisterAccountCallback callback);
+
+    void getUserInformation(GetPeopleCallback callback);
+
     void queryLoginAccountInfo(String account,GetPeopleCallback callback);
 
     void getNewHomeworksInfo(LoadHomeworkCallback callback);
@@ -97,7 +112,6 @@ public interface TasksDataSource {
     void getMessagesInfo(LoadMessagesCallback callback);
     void getMessageInfo(GetMessageCallback callback);
 
-    void getMyInformation();
 
     void getSchoolSocietyInfo();
 

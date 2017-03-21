@@ -2,6 +2,7 @@ package com.example.a79069.homeworkmvp.data;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class Classroom extends DataSupport{
 
     private int nameOfTeacher;
 
-    private List<People> peopleList;
+    private List<People> peopleList = new ArrayList<>();
 
     public int getId() {
         return id;

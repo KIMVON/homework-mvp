@@ -17,6 +17,7 @@
         <activity android:name=".studentMainTask.StudentTaskActivity"/>
         <activity android:name=".registerTask.RegisterActivity"/>
         <activity android:name=".forgetTask.ForgetActivity"/>
+        <activity android:name=".addClassroomTask.AddClassroomActivity"/>
     </application>
 
 </manifest>

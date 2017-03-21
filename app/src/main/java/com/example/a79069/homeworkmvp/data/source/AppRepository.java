@@ -2,8 +2,10 @@ package com.example.a79069.homeworkmvp.data.source;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.example.a79069.homeworkmvp.data.Classroom;
+import com.example.a79069.homeworkmvp.data.Friends;
 import com.example.a79069.homeworkmvp.data.Homework;
 import com.example.a79069.homeworkmvp.data.Message;
 import com.example.a79069.homeworkmvp.data.People;
@@ -12,6 +14,7 @@ import com.example.a79069.homeworkmvp.data.source.local.TaskLocalDataSource;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,6 +40,61 @@ public class AppRepository implements TasksDataSource {
             INSTANCE = new AppRepository(tasksLocalDataSource, tasksRemoteDataSource);
         }
         return INSTANCE;
+    }
+
+    @Override
+    public void registerAccount(String account, String password, String name, String sex, int year, String userType , final RegisterAccountCallback callback) {
+        checkNotNull(account);
+        checkNotNull(password);
+        checkNotNull(name);
+        checkNotNull(sex);
+        checkNotNull(year);
+        checkNotNull(userType);
+        checkNotNull(callback);
+
+
+        mTasksLocalDataSource.registerAccount(account, password, name, sex, year, userType, new RegisterAccountCallback() {
+            @Override
+            public void registerSuccess() {
+                callback.registerSuccess();
+            }
+
+            @Override
+            public void registerFailed(String account) {
+               callback.registerFailed(account);
+            }
+        });
+
+
+    }
+
+    @Override
+    public void getUserInformation(final GetPeopleCallback callback) {
+        checkNotNull(callback);
+
+        mTasksLocalDataSource.getUserInformation(new GetPeopleCallback() {
+            @Override
+            public void loadPeople(People people) {
+                callback.loadPeople(people);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+                mTasksRemoteDataSource.getUserInformation(new GetPeopleCallback() {
+                    @Override
+                    public void loadPeople(People people) {
+                        callback.loadPeople(people);
+                    }
+
+                    @Override
+                    public void onDataNotAvailable() {
+                        callback.onDataNotAvailable();
+                    }
+                });
+            }
+        });
+
     }
 
     @Override
@@ -125,8 +183,30 @@ public class AppRepository implements TasksDataSource {
     }
 
     @Override
-    public void getMyClassroomsInfo(LoadMyClassroomsCallback callback) {
+    public void getMyClassroomsInfo(final LoadMyClassroomsCallback callback) {
+        checkNotNull(callback);
 
+        mTasksLocalDataSource.getMyClassroomsInfo(new LoadMyClassroomsCallback() {
+            @Override
+            public void loadMyClassrooms(List<Classroom> classroomList) {
+                callback.loadMyClassrooms(classroomList);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                mTasksRemoteDataSource.getMyClassroomsInfo(new LoadMyClassroomsCallback() {
+                    @Override
+                    public void loadMyClassrooms(List<Classroom> classroomList) {
+                        callback.loadMyClassrooms(classroomList);
+                    }
+
+                    @Override
+                    public void onDataNotAvailable() {
+                        callback.onDataNotAvailable();
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -135,27 +215,68 @@ public class AppRepository implements TasksDataSource {
     }
 
     @Override
-    public void getFriendsInfo(LoadMyFriendsCallback callback) {
+    public void getFriendsInfo(final LoadMyFriendsCallback callback) {
+        checkNotNull(callback);
 
+        mTasksLocalDataSource.getFriendsInfo(new LoadMyFriendsCallback() {
+            @Override
+            public void loadMyFriends(List<Friends> friendsList) {
+                callback.loadMyFriends(friendsList);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                mTasksRemoteDataSource.getFriendsInfo(new LoadMyFriendsCallback() {
+                    @Override
+                    public void loadMyFriends(List<Friends> friendsList) {
+                        callback.loadMyFriends(friendsList);
+                    }
+
+                    @Override
+                    public void onDataNotAvailable() {
+                        callback.onDataNotAvailable();
+                    }
+                });
+            }
+        });
     }
 
     @Override
     public void getFriendInfo(GetPeopleCallback callback) {
+        checkNotNull(callback);
+
 
     }
 
     @Override
-    public void getMessagesInfo(LoadMessagesCallback callback) {
+    public void getMessagesInfo(final LoadMessagesCallback callback) {
+        checkNotNull(callback);
 
+        mTasksLocalDataSource.getMessagesInfo(new LoadMessagesCallback() {
+            @Override
+            public void loadMessages(List<Message> messageList) {
+                callback.loadMessages(messageList);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                mTasksRemoteDataSource.getMessagesInfo(new LoadMessagesCallback() {
+                    @Override
+                    public void loadMessages(List<Message> messageList) {
+                        callback.loadMessages(messageList);
+                    }
+
+                    @Override
+                    public void onDataNotAvailable() {
+                        callback.onDataNotAvailable();
+                    }
+                });
+            }
+        });
     }
 
     @Override
     public void getMessageInfo(GetMessageCallback callback) {
-
-    }
-
-    @Override
-    public void getMyInformation() {
 
     }
 

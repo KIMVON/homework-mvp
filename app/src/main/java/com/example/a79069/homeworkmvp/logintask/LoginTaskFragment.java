@@ -20,9 +20,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.a79069.homeworkmvp.R;
+import com.example.a79069.homeworkmvp.data.Classroom;
+import com.example.a79069.homeworkmvp.data.People;
 import com.example.a79069.homeworkmvp.forgetTask.ForgetActivity;
 import com.example.a79069.homeworkmvp.registerTask.RegisterActivity;
 import com.example.a79069.homeworkmvp.studentMainTask.StudentTaskActivity;
+
+import org.litepal.LitePal;
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +51,13 @@ public class LoginTaskFragment extends Fragment implements LoginTaskContract.Vie
     private CheckBox remCheckBox;
     private TextView mRegisterTextView;
     private TextView mForgetTextView;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        addDATA();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -101,6 +113,7 @@ public class LoginTaskFragment extends Fragment implements LoginTaskContract.Vie
 
 
 
+
         return view;
     }
 
@@ -120,13 +133,13 @@ public class LoginTaskFragment extends Fragment implements LoginTaskContract.Vie
         switch (view.getId()){
             case R.id.login:
                 /** 测试先不用
+                 **/
                 mLoginPresenter.loginApp(account.getText().toString()
                         , password.getText().toString() , mSelectType , remCheckBox.isChecked());
-                 **/
                 /**
                  * 测试用
-                 */
                 loginSuccess();
+                 */
                 break;
             case R.id.register_account:
                 showRegisteredActivity();

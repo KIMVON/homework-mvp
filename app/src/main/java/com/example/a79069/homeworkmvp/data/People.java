@@ -2,13 +2,15 @@ package com.example.a79069.homeworkmvp.data;
 
 import org.litepal.crud.DataSupport;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by 79069 on 2017/3/14.
  */
 
-public class People extends DataSupport{
+public class People extends DataSupport implements Serializable{
     private int id;
 
     private String name;
@@ -23,12 +25,13 @@ public class People extends DataSupport{
 
     private String peopleType;
 
-    private List<Homework> homeworkList;
+    private List<Homework> homeworkList = new ArrayList<>();
 
-    private List<Classroom> classroomList;
+    private List<Classroom> classroomList = new ArrayList<>();
 
-    private List<Message> messageList;
+    private List<Message> messageList = new ArrayList<>();
 
+    private List<Friends> friendsList = new ArrayList<>();
 
 
     public int getId() {
@@ -111,5 +114,11 @@ public class People extends DataSupport{
         this.messageList = messageList;
     }
 
+    public List<Friends> getFriendsList() {
+        return friendsList;
+    }
 
+    public void setFriendsList(List<Friends> friendsList) {
+        this.friendsList = friendsList;
+    }
 }

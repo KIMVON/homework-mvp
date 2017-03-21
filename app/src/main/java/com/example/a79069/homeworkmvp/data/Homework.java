@@ -3,6 +3,7 @@ package com.example.a79069.homeworkmvp.data;
 import org.litepal.crud.DataSupport;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class Homework extends DataSupport{
 
     private String content;
 
-    private List<People> peopleList;
+    private List<People> peopleList = new ArrayList<>();
 
     public int getId() {
         return id;

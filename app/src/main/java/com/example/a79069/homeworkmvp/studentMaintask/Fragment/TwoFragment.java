@@ -55,7 +55,7 @@ public class TwoFragment extends Fragment implements StudentTaskContract.View.Tw
     @Override
     public void onResume() {
         super.onResume();
-//        mPresenter.start();
+        mPresenter.startTwo();
     }
 
 

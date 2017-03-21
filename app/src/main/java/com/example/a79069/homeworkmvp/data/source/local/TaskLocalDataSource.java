@@ -3,6 +3,7 @@ package com.example.a79069.homeworkmvp.data.source.local;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.example.a79069.homeworkmvp.app.MyApplication;
 import com.example.a79069.homeworkmvp.data.Classroom;
@@ -23,6 +24,8 @@ import java.util.List;
 
 public class TaskLocalDataSource implements TasksDataSource {
     private static TaskLocalDataSource INSTANCE;
+
+    private static People sUser;
 
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
@@ -45,8 +48,28 @@ public class TaskLocalDataSource implements TasksDataSource {
     }
 
     @Override
-    public void getMyInformation() {
+    public void registerAccount(String account, String password, String name, String sex, int year, String userType , RegisterAccountCallback callback) {
+        List<People> peopleList = DataSupport.where("account=?" , account).find(People.class);
 
+        if (peopleList.size() == 0){
+            People people = new People();
+            people.setAccount(account);
+            people.setPassword(password);
+            people.setName(name);
+            people.setYear(year);
+            people.setPeopleType(userType);
+            people.save();
+            callback.registerSuccess();
+        }else {
+            callback.registerFailed(account);
+        }
+
+
+    }
+
+    @Override
+    public void getUserInformation(GetPeopleCallback callback) {
+        callback.loadPeople(sUser);
     }
 
 
@@ -54,19 +77,19 @@ public class TaskLocalDataSource implements TasksDataSource {
 
     @Override
     public void queryLoginAccountInfo(String account, GetPeopleCallback callback) {
-         List<People> peopleList = DataSupport.where("account=?" , account).find(People.class);
+        List<People> peopleList = DataSupport.where("account=?" , account).find(People.class);
         if (peopleList.size() == 0){
             callback.onDataNotAvailable();
         }else {
-            callback.loadPeople(peopleList.get(0));
+            sUser = peopleList.get(0);
+            callback.loadPeople(sUser);
         }
 
     }
 
     @Override
     public void getNewHomeworksInfo(LoadHomeworkCallback callback) {
-        List<Homework> homeworkList = new ArrayList<>();
-
+//        List<Homework> homeworkList = new ArrayList<>();
     }
 
     @Override
@@ -106,7 +129,7 @@ public class TaskLocalDataSource implements TasksDataSource {
 
     @Override
     public void getMyClassroomsInfo(LoadMyClassroomsCallback callback) {
-
+        callback.loadMyClassrooms(sUser.getClassroomList());
     }
 
     @Override
@@ -116,7 +139,7 @@ public class TaskLocalDataSource implements TasksDataSource {
 
     @Override
     public void getFriendsInfo(LoadMyFriendsCallback callback) {
-
+        callback.loadMyFriends(sUser.getFriendsList());
     }
 
     @Override
@@ -127,7 +150,7 @@ public class TaskLocalDataSource implements TasksDataSource {
 
     @Override
     public void getMessagesInfo(LoadMessagesCallback callback) {
-
+        callback.loadMessages(sUser.getMessageList());
     }
 
     @Override
@@ -196,6 +219,13 @@ public class TaskLocalDataSource implements TasksDataSource {
 
 
     }
+
+
+
+
+
+
+
 
 
     /**

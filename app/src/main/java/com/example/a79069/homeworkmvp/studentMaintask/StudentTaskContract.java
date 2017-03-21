@@ -1,5 +1,7 @@
 package com.example.a79069.homeworkmvp.studentMainTask;
 
+import android.content.Context;
+
 import com.example.a79069.homeworkmvp.BasePresenter;
 import com.example.a79069.homeworkmvp.BaseView;
 import com.example.a79069.homeworkmvp.forgetTask.ForgetContract;
@@ -10,11 +12,31 @@ import com.example.a79069.homeworkmvp.forgetTask.ForgetContract;
 
 public interface StudentTaskContract {
     interface Presenter extends BasePresenter {
+        void startOne();
+
+        void startTwo();
+
+        void startThree();
+
+        void startFour();
+
         void loadNewHomework();
 
         void loadMyClassroom();
 
         void loadMessage();
+
+        void initializeName(Context context);
+
+        void initializeClassrooms();
+
+        void initializeMessages();
+
+        void initializeFriends();
+
+        void loadUserInfo();
+
+        void addClassroom();
 
     }
 

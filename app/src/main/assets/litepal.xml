@@ -2,12 +2,13 @@
 <litepal>
     <dbname value="HomeworkSystem"></dbname>
 
-    <version value = "1"></version>
+    <version value = "4"></version>
 
     <list>
         <mapping class = "com.example.a79069.homeworkmvp.data.Classroom"></mapping>
         <mapping class="com.example.a79069.homeworkmvp.data.Homework"></mapping>
         <mapping class="com.example.a79069.homeworkmvp.data.Message"></mapping>
         <mapping class="com.example.a79069.homeworkmvp.data.People"></mapping>
+        <mapping class="com.example.a79069.homeworkmvp.data.Friends"></mapping>
     </list>
 </litepal>

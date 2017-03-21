@@ -21,68 +21,79 @@ public class TaskRemoteDataSource implements TasksDataSource {
 
 
     @Override
+    public void registerAccount(String account, String password,
+                                String name, String sex, int year, String userType , RegisterAccountCallback callback) {
+        callback.registerFailed(account);
+    }
+
+    @Override
+    public void getUserInformation(GetPeopleCallback callback) {
+        callback.onDataNotAvailable();
+    }
+
+    @Override
     public void queryLoginAccountInfo(String account, GetPeopleCallback callback) {
         callback.onDataNotAvailable();
     }
 
     @Override
     public void getNewHomeworksInfo(LoadHomeworkCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
     @Override
     public void getNewHomeworkInfo(GetHomeworkCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
     @Override
     public void getMySubmitAnswersInfo(LoadHomeworkCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
     @Override
     public void getHomeworkAnswerInfo(GetHomeworkCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
     @Override
     public void getMySubmitHomework(LoadHomeworkCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
     @Override
     public void getMySubmitHomework(GetHomeworkCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
     @Override
     public void getHistoryHomeworksInfo(LoadHomeworkCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
     @Override
     public void getHistoryHomeworkInfo(GetHomeworkCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
     @Override
     public void getMyClassroomsInfo(LoadMyClassroomsCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
     @Override
     public void getMyClassroomInfo(GetMyClassroomCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
     @Override
     public void getFriendsInfo(LoadMyFriendsCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
     @Override
     public void getFriendInfo(GetPeopleCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
 
@@ -90,17 +101,12 @@ public class TaskRemoteDataSource implements TasksDataSource {
 
     @Override
     public void getMessagesInfo(LoadMessagesCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
     @Override
     public void getMessageInfo(GetMessageCallback callback) {
-
-    }
-
-    @Override
-    public void getMyInformation() {
-
+        callback.onDataNotAvailable();
     }
 
     @Override
