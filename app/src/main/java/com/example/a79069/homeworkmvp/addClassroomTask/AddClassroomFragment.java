@@ -6,14 +6,22 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.example.a79069.homeworkmvp.R;
 
 /**
  * Created by 79069 on 2017/3/21.
  */
 
 public class AddClassroomFragment extends Fragment
-        implements AddClassroomContract.AddClassroomView {
+        implements AddClassroomContract.View {
 
+    public static AddClassroomFragment newInstance(){
+        return new AddClassroomFragment();
+    }
+
+    private AddClassroomContract.Presenter mPresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,11 +37,30 @@ public class AddClassroomFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_add_classroom , container , false);
+
+        /**
+         * 测试用
+         */
+        Button button = (Button) view.findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.addClassroom();
+            }
+        });
+
+        return view;
+    }
+
+
+    @Override
+    public void setPresenter(AddClassroomPresenter presenter) {
+        mPresenter = presenter;
     }
 
     @Override
-    public void setPresenter(AddClassroomContract.AddClassroomPresenter presenter) {
-
+    public void closeActivity() {
+        getActivity().finish();
     }
 }

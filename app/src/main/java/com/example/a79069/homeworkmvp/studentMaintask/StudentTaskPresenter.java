@@ -99,8 +99,9 @@ public class StudentTaskPresenter implements StudentTaskContract.Presenter {
     public void initializeClassrooms() {
         /**
          * 测试
-         */
+
         ((OneFragment) mOneFragmentView).setAdapter(new ArrayList<Classroom>());
+         */
         mAppRepository.getMyClassroomsInfo(new TasksDataSource.LoadMyClassroomsCallback() {
             @Override
             public void loadMyClassrooms(List<Classroom> classroomList) {

@@ -181,7 +181,11 @@ public class TaskLocalDataSource implements TasksDataSource {
 
     @Override
     public void addMyClassroom(Classroom classroom) {
-
+        /**
+         * 测试用
+         */
+        sUser.getClassroomList().add(classroom);
+        sUser.save();
     }
 
     @Override

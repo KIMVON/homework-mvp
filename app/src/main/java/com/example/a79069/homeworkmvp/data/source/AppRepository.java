@@ -302,7 +302,7 @@ public class AppRepository implements TasksDataSource {
 
     @Override
     public void addMyClassroom(Classroom classroom) {
-
+        mTasksLocalDataSource.addMyClassroom(classroom);
     }
 
     @Override
@@ -339,6 +339,11 @@ public class AppRepository implements TasksDataSource {
     public void pushGoodHomework(Homework homework) {
 
     }
+
+
+
+
+
 
     @Nullable
     private People getPeopleWithAccount(@NonNull String account) {

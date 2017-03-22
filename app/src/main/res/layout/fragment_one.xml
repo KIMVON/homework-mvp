@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<com.example.a79069.homeworkmvp.View.MyScrollview
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,5 +32,6 @@
             android:textSize="18sp"/>
 
         <include layout="@layout/fragment_one_bottom"/>
+
     </LinearLayout>
-</ScrollView>
+</com.example.a79069.homeworkmvp.View.MyScrollview>

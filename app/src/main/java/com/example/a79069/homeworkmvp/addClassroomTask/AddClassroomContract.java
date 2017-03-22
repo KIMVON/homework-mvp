@@ -8,11 +8,11 @@ import com.example.a79069.homeworkmvp.BaseView;
  */
 
 public interface AddClassroomContract {
-    interface AddClassroomPresenter extends BasePresenter{
-
+    interface Presenter extends BasePresenter{
+        void addClassroom();
     }
 
-    interface AddClassroomView extends BaseView<AddClassroomPresenter>{
-
+    interface View extends BaseView<AddClassroomPresenter>{
+        void closeActivity();
     }
 }

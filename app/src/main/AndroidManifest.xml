@@ -18,6 +18,7 @@
         <activity android:name=".registerTask.RegisterActivity"/>
         <activity android:name=".forgetTask.ForgetActivity"/>
         <activity android:name=".addClassroomTask.AddClassroomActivity"/>
+        <activity android:name=".myClassroomDetailsTask.MyClassroomDetailsActivity"/>
     </application>
 
 </manifest>

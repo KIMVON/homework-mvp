@@ -19,13 +19,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.a79069.homeworkmvp.R;
+import com.example.a79069.homeworkmvp.View.FullyGridLayoutManager;
 import com.example.a79069.homeworkmvp.addClassroomTask.AddClassroomActivity;
 import com.example.a79069.homeworkmvp.data.Classroom;
+import com.example.a79069.homeworkmvp.myClassroomDetailsTask.MyClassroomDetailsActivity;
 import com.example.a79069.homeworkmvp.studentMainTask.StudentTaskContract;
 import com.example.a79069.homeworkmvp.studentMainTask.StudentTaskPresenter;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -55,13 +61,67 @@ public class OneFragment extends Fragment implements StudentTaskContract.View.On
         View view = inflater.inflate(R.layout.fragment_one , container , false);
 
         mClassroomsRecyclerView = (RecyclerView) view.findViewById(R.id.recylerview_my_class);
-        mClassroomsRecyclerView.setLayoutManager(new GridLayoutManager(getActivity() , 3));
+
+
+//        mClassroomsRecyclerView.setLayoutManager(new GridLayoutManager(getActivity() , 3){
+//
+//
+//
+//
+//            /**
+//             * 禁止滑动
+//             * @param recycler
+//             * @param state
+//             * @param widthSpec
+//             * @param heightSpec
+//
+//            @Override
+//            public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
+//                super.onMeasure(recycler, state, widthSpec, heightSpec);
+//                int measuredWidth = mClassroomsRecyclerView.getMeasuredWidth();
+//                int measuredHeight = mClassroomsRecyclerView.getMeasuredHeight();
+//                int myMeasureHeight = 0;
+//                int count = state.getItemCount();
+//                for (int i = 0; i < count; i++) {
+//                    View view = recycler.getViewForPosition(i);
+//                    if (view != null) {
+//                        if (myMeasureHeight < measuredHeight && i % 3 == 0) {
+//                            RecyclerView.LayoutParams p = (RecyclerView.LayoutParams) view.getLayoutParams();
+//                            int childWidthSpec = ViewGroup.getChildMeasureSpec(widthSpec,
+//                                    getPaddingLeft() + getPaddingRight(), p.width);
+//                            int childHeightSpec = ViewGroup.getChildMeasureSpec(heightSpec,
+//                                    getPaddingTop() + getPaddingBottom(), p.height);
+//                            view.measure(childWidthSpec, childHeightSpec);
+//                            myMeasureHeight += view.getMeasuredHeight() + p.bottomMargin + p.topMargin;
+//                        }
+//                        recycler.recycleView(view);
+//                    }
+//                }
+//                // Log.i("Height", "" + Math.min(measuredHeight, myMeasureHeight));
+//                setMeasuredDimension(measuredWidth, Math.min(measuredHeight, myMeasureHeight));
+//            }
+//            */
+//        });
+
+        /**
+         * 重写完之后，用就好说了，在adapter的onBindview和平常一样用就可以了
+         * 这个要这样
+         */
+        final FullyGridLayoutManager manager = new FullyGridLayoutManager(getActivity(), 3);
+        manager.setOrientation(GridLayoutManager.VERTICAL);
+        manager.setSmoothScrollbarEnabled(true);
+        mClassroomsRecyclerView.setLayoutManager(manager);
+
+
+
 
         mStudentTaskPresenter.initializeClassrooms();
 
         LinearLayout newHomeworkBtn = (LinearLayout) view.findViewById(R.id.new_homework);
         LinearLayout homeworkAnswerBtn = (LinearLayout) view.findViewById(R.id.answer_homework);
         LinearLayout myHomeworkAnswerBtn = (LinearLayout) view.findViewById(R.id.my_submit);
+
+
         newHomeworkBtn.setOnClickListener(this);
         myHomeworkAnswerBtn.setOnClickListener(this);
         homeworkAnswerBtn.setOnClickListener(this);
@@ -144,7 +204,8 @@ public class OneFragment extends Fragment implements StudentTaskContract.View.On
 
     @Override
     public void showMyClassroomInfo() {
-
+        Intent intent = MyClassroomDetailsActivity.newIntent(getActivity());
+        startActivity(intent);
     }
 
 
@@ -159,48 +220,42 @@ public class OneFragment extends Fragment implements StudentTaskContract.View.On
 
 
     private class MyClassroomViewHolder extends RecyclerView.ViewHolder {
+        private ImageView mImageView;
+        private ImageView mRedPoint;
+        private TextView mClassroomName;
+
         public MyClassroomViewHolder(View itemView) {
             super(itemView);
 
-        }
-    }
-
-    private class MyClassroomAdapter extends RecyclerView.Adapter<MyClassroomViewHolder>{
-        private List<Classroom> mClassroomList;
-
-        private ImageView mImageView;
-
-        public MyClassroomAdapter(List<Classroom> classroomList){
-
-            mClassroomList = classroomList;
+            mImageView = (ImageView) itemView.findViewById(R.id.add_classroom_image_view);
+            mClassroomName = (TextView) itemView.findViewById(R.id.class_name);
+            mRedPoint = (ImageView) itemView.findViewById(R.id.red_point);
         }
 
-        @Override
-        public MyClassroomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_one_classroom_item , parent , false);
-            mImageView = (ImageView) view.findViewById(R.id.add_classroom_image_view);
-            return new MyClassroomViewHolder(view);
-        }
 
-        @Override
-        public void onBindViewHolder(MyClassroomViewHolder holder, int position) {
+        void bindView(List<Classroom> mClassroomList, int position){
+
             /**
              * 显示已经添加好的班级
              */
             if (position != mClassroomList.size()){
-                mImageView.setVisibility(View.GONE);
+//                mImageView.setVisibility(View.GONE);
+                Glide.with(getActivity()).load(R.mipmap.ic_launcher).into(mImageView);
                 mImageView.setBackgroundColor(Color.BLACK);
                 mImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        showMyClassroomInfo();
                     }
                 });
             }
+
             /**
              * 显示+号图标
              */
             if (position==mClassroomList.size()){
+                mRedPoint.setVisibility(View.GONE);
+                mClassroomName.setVisibility(View.GONE);
                 mImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -208,6 +263,65 @@ public class OneFragment extends Fragment implements StudentTaskContract.View.On
                     }
                 });
             }
+        }
+
+
+    }
+
+    private class MyClassroomAdapter extends RecyclerView.Adapter<MyClassroomViewHolder>{
+        private List<Classroom> mClassroomList;
+
+//        private ImageView mImageView;
+//        private ImageView mRedPoint;
+//        private TextView mClassroomName;
+
+        public MyClassroomAdapter(List<Classroom> classroomList){
+            mClassroomList = classroomList;
+        }
+
+
+        @Override
+        public MyClassroomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_one_classroom_item , parent , false);
+//            mImageView = (ImageView) view.findViewById(R.id.add_classroom_image_view);
+//            mClassroomName = (TextView) view.findViewById(R.id.class_name);
+//            mRedPoint = (ImageView) view.findViewById(R.id.red_point);
+
+            return new MyClassroomViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(MyClassroomViewHolder holder, int position) {
+            holder.bindView(mClassroomList,position);
+//            /**
+//             * 显示已经添加好的班级
+//             */
+//            if (position != mClassroomList.size()){
+////                mImageView.setVisibility(View.GONE);
+//                Glide.with(getActivity()).load(R.mipmap.ic_launcher).into(mImageView);
+//                mImageView.setBackgroundColor(Color.BLACK);
+//                mImageView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        showMyClassroomInfo();
+//                    }
+//                });
+//            }
+//
+//            /**
+//             * 显示+号图标
+//             */
+//            if (position==mClassroomList.size()){
+//                mRedPoint.setVisibility(View.GONE);
+//                mClassroomName.setVisibility(View.GONE);
+//                mImageView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        showAddClass();
+//                    }
+//                });
+//            }
+
         }
 
         @Override
